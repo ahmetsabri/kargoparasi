@@ -33,6 +33,8 @@ return [
         'location_method' => env('UPS_LOCATIONS_METHOD'),
         'calculation_url' => env('UPS_CALCULATION_URL'),
         'calculation_method' => env('UPS_CALCULATION_METHOD'),
+        'viewstate' => env('UPS_VIEWSTATE'),
+        'eventvalidation' => env('UPS_EVENTVALIDATION'),
     ],
 
 ];

@@ -1,8 +1,11 @@
 <?php
 
-use App\Actions\CalculateMngPrice;
-use App\Actions\CalculateUpsPrice;
-use App\Actions\CalculateYurticiPrice;
+use App\Actions\CalculateMngEnvelopePrice;
+use App\Actions\CalculateMngParcelPrice;
+use App\Actions\CalculateUpsEnvelopePrice;
+use App\Actions\CalculateUpsParcelPrice;
+use App\Actions\CalculateYurticiEnvelopePrice;
+use App\Actions\CalculateYurticiParcelPrice;
 use App\Models\City;
 use Illuminate\Support\Facades\Route;
 
@@ -20,11 +23,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
 
     $from = City::plate(34)->first();
-    $to = City::plate('01')->first();
+    $to = City::plate("01")->first();
 
-    $yurtici = (new CalculateYurticiPrice())->execute($from, $to, true);
-    $ups = (new CalculateUpsPrice())->execute($from, $to, true);
-    $mng = (new CalculateMngPrice())->execute($from, $to, true);
-    //TODO: ups caculation implementation
-    return compact('mng', 'yurtici', 'ups');
+    // envelope
+    $yurtici = (new CalculateYurticiEnvelopePrice())->execute($from, $to, true);
+    $ups = (new CalculateUpsEnvelopePrice())->execute($from, $to, true);
+    $mng = (new CalculateMngEnvelopePrice())->execute($from, $to, true);
+
+    // Parcel
+    // $yurtici = (new CalculateYurticiParcelPrice())->execute($from, $to, 10, 11, 12, 3);
+    // $mng = (new CalculateMngParcelPrice())->execute($from, $to, 10, 11, 12, 3);
+    // $ups = (new CalculateUpsParcelPrice())->execute($from, $to, 10, 11, 12, 3);
+
+    return compact('yurtici', 'mng', 'ups');
+
 });

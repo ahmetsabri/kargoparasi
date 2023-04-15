@@ -1,0 +1,131 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\CargoProvider;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class CargoPorviderSettingSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        $yurticiSettings = [
+            'urls' => [
+                'locations' => config('cargoproviders.yurtici.location_url'),
+                'calculation' => config('cargoproviders.yurtici.calculation_url'),
+            ],
+
+            'methods' => [
+                'locations' => config('cargoproviders.yurtici.location_method'),
+                'calculation' => config('cargoproviders.yurtici.calculation_method'),
+            ],
+
+            'calculation_payload' => [
+                'from' => 'SourceCityId',
+                'to' => 'DestinationCityId',
+                'weight' => 'Weight',
+                'length' => 'Length',
+                'width' => 'Width',
+                'height' => 'Height',
+                'envelope_key' => 'ShipmentType',
+                'envelope_value' => 0,
+                'parcel_key' => 'ShipmentType',
+                'parcel_value' => 2,
+            ],
+            'extra_payload' => [
+                'SourceCountyId' => 'SourceCountyId',
+                'DestinationCountyId' => 'DestinationCountyId',
+                'TotalKgds' => 'TotalKgds',
+                'TotalCount' => 'TotalCount'
+            ],
+            'defined_payload' => [],
+        ];
+
+        $mngSettings =  [
+            'urls' => [
+                'locations' => config('cargoproviders.mng.location_url'),
+                'calculation' => config('cargoproviders.mng.calculation_url'),
+            ],
+
+            'methods' => [
+                'locations' => config('cargoproviders.mng.location_method'),
+                'calculation' => config('cargoproviders.mng.calculation_method'),
+            ],
+
+            'calculation_payload' => [
+                'from' => 'WhereFromCityId',
+                'to' => 'WhereCityId',
+                'weight' => 'WeightRange',
+                'length' => 'LengthRange',
+                'width' => 'WidthRange',
+                'height' => 'HeightRange',
+                'envelope_key' => 'EnvelopeFile',
+                'envelope_value' => 1,
+                'parcel_key' => 'PackageParcel',
+                'parcel_value' => 3,
+            ],
+            'extra_payload' => [],
+            'defined_payload' => [],
+        ];
+
+        $upsSettings = [
+            'urls' => [
+                'locations' => config('cargoproviders.ups.location_url'),
+                'calculation' => config('cargoproviders.ups.calculation_url'),
+            ],
+
+            'methods' => [
+                'locations' => config('cargoproviders.ups.location_method'),
+                'calculation' => config('cargoproviders.ups.calculation_method'),
+            ],
+
+            'calculation_payload' => [
+                'from' => 'ctl00$MainContent$yurticihesap_drop_gonsehir',
+                'to' => 'ctl00$MainContent$yurticihesap_drop_alsehir',
+                'weight' => 'ctl00$MainContent$TextBoxYurticiGercekAgirlik2',
+                'length' => 'ctl00$MainContent$TextBoxYurticiYukseklik',
+                'width' => 'ctl00$MainContent$TextBoxYurticiEn',
+                'height' => 'ctl00$MainContent$TextBoxYurticiBoy',
+                'envelope_key' => 'ctl00$MainContent$RadioButtonYurticiFiyatHesaplaDosya',
+                'envelope_value' => 'C',
+                'parcel_key' => 'ctl00$MainContent$RadioButtonYurticiFiyatHesaplaKoli',
+                'parcel_value' => 'I',
+            ],
+
+            'extra_payload' => [],
+
+            'defined_payload' => [
+                'ctl00$MainContent$TextBoxYurticiGercekAgirlik1' => '0',
+                'ctl00$MainContent$Button3' => 'Hesapla',
+                'ctl00$MainContent$yurticihesap_drop_servistip' => '3',
+                'ctl00$MainContent$RadioButtonYurticiFiyatHesaplaDosya' => 'C',
+                'ctl00$MainContent$RadioButtonYurticiFiyatHesaplaKoli' => 'I',
+                '__VIEWSTATE' => config('cargoproviders.ups.viewstate'),
+                '__EVENTVALIDATION' => config('cargoproviders.ups.eventvalidation'),
+            ],
+        ];
+
+        $cargoProviders = [
+            'yurtici' => $yurticiSettings,
+            'mng' => $mngSettings,
+            'ups' => $upsSettings,
+        ];
+
+        foreach ($cargoProviders as $provider => $settings) {
+            $provider = CargoProvider::where('name', $provider)->first();
+            $provider->settings()->updateOrCreate(
+                [
+                    'cargo_provider_id' => $provider->id,
+                ],
+                [
+                    'cargo_provider_id' => $provider->id,
+                    'settings' => $settings,
+                ]
+            );
+        }
+    }
+}

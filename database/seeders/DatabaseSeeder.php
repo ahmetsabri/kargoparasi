@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
                 CitySeeder::class,
                 DistrictSeeder::class,
                 CargoProviderSeeder::class,
+                CargoPorviderSettingSeeder::class,
             ]
             );
     }

@@ -5,7 +5,7 @@ namespace App\Actions;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 
-class CalculateYurticiPrice
+class CalculateYurticiEnvelopePrice
 {
     public function execute($fromCity, $toCity, $isEnvelope)
     {
@@ -17,7 +17,7 @@ class CalculateYurticiPrice
             "SourceCountyId" => $fromCity->district->provider_id['yurtici'],
             "DestinationCityId" => $toCity->plate,
             "DestinationCountyId" => $toCity->district->provider_id['yurtici'],
-            "ShipmentType" => $isEnvelope ? 0 : 2,
+            "ShipmentType" => 0,
             "TotalCount" => 1
         ])->json()[0];
 
