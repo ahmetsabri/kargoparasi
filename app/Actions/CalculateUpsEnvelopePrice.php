@@ -19,8 +19,8 @@ class CalculateUpsEnvelopePrice
             'ctl00$MainContent$TextBoxYurticiGercekAgirlik1' => '0',
             'ctl00$MainContent$TextBoxYurticiGercekAgirlik2' => '5',
             'ctl00$MainContent$Button3' => 'Hesapla',
-            '__VIEWSTATE' => config('cargoproviders.ups.viewstate'), // TODO: add from .env
-            '__EVENTVALIDATION' => config('cargoproviders.ups.eventvalidation') //TODO: add from .env
+            '__VIEWSTATE' => config('cargoproviders.ups.viewstate'),
+            '__EVENTVALIDATION' => config('cargoproviders.ups.eventvalidation')
             ])->throw()->body();
 
             $pos = mb_strpos($price,'Toplam Ücret :');
