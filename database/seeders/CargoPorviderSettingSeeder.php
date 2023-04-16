@@ -27,14 +27,16 @@ class CargoPorviderSettingSeeder extends Seeder
             'calculation_payload' => [
                 'from' => 'SourceCityId',
                 'to' => 'DestinationCityId',
-                'weight' => 'Weight',
-                'length' => 'Length',
-                'width' => 'Width',
-                'height' => 'Height',
                 'envelope_key' => 'ShipmentType',
                 'envelope_value' => 0,
                 'parcel_key' => 'ShipmentType',
                 'parcel_value' => 2,
+            ],
+            'dimensions' => [
+                'weight' => 'Weight',
+                'length' => 'Length',
+                'width' => 'Width',
+                'height' => 'Height',
             ],
             'extra_payload' => [
                 'SourceCountyId' => 'SourceCountyId',
@@ -59,14 +61,16 @@ class CargoPorviderSettingSeeder extends Seeder
             'calculation_payload' => [
                 'from' => 'WhereFromCityId',
                 'to' => 'WhereCityId',
-                'weight' => 'WeightRange',
-                'length' => 'LengthRange',
-                'width' => 'WidthRange',
-                'height' => 'HeightRange',
                 'envelope_key' => 'EnvelopeFile',
                 'envelope_value' => 1,
                 'parcel_key' => 'PackageParcel',
                 'parcel_value' => 3,
+            ],
+            'dimensions' => [
+                'weight' => 'WeightRange',
+                'length' => 'LengthRange',
+                'width' => 'WidthRange',
+                'height' => 'HeightRange',
             ],
             'extra_payload' => [],
             'defined_payload' => [],
@@ -86,16 +90,17 @@ class CargoPorviderSettingSeeder extends Seeder
             'calculation_payload' => [
                 'from' => 'ctl00$MainContent$yurticihesap_drop_gonsehir',
                 'to' => 'ctl00$MainContent$yurticihesap_drop_alsehir',
-                'weight' => 'ctl00$MainContent$TextBoxYurticiGercekAgirlik2',
-                'length' => 'ctl00$MainContent$TextBoxYurticiYukseklik',
-                'width' => 'ctl00$MainContent$TextBoxYurticiEn',
-                'height' => 'ctl00$MainContent$TextBoxYurticiBoy',
                 'envelope_key' => 'ctl00$MainContent$RadioButtonYurticiFiyatHesaplaDosya',
                 'envelope_value' => 'C',
                 'parcel_key' => 'ctl00$MainContent$RadioButtonYurticiFiyatHesaplaKoli',
                 'parcel_value' => 'I',
             ],
-
+            'dimensions' => [
+                'height' => 'ctl00$MainContent$TextBoxYurticiYukseklik',
+                'width' => 'ctl00$MainContent$TextBoxYurticiEn',
+                'length' => 'ctl00$MainContent$TextBoxYurticiBoy',
+                'weight' => 'ctl00$MainContent$TextBoxYurticiGercekAgirlik2',
+            ],
             'extra_payload' => [],
 
             'defined_payload' => [

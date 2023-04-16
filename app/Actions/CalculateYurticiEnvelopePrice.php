@@ -2,25 +2,34 @@
 
 namespace App\Actions;
 
+use App\Models\City;
 use Illuminate\Support\Arr;
+use App\Models\CargoProvider;
 use Illuminate\Support\Facades\Http;
+use App\Helpers\CalculationPayloadMapper;
 
 class CalculateYurticiEnvelopePrice
 {
-    public function execute($fromCity, $toCity, $isEnvelope)
+    public function execute(City $fromCity, City $toCity)
     {
-        $url = config('cargoproviders.yurtici.calculation_url');
-        $method = config('cargoproviders.yurtici.calculation_method');
+        $settings = CargoProvider::where('name', 'YURTICI')->first()->load('settings')->settings->settings;
 
-        $response = Http::$method($url, [
-            "SourceCityId" => $fromCity->plate,
+        $url = $settings['urls']['calculation'];
+
+        $method = $settings['methods']['calculation'];
+
+        $payload = (new CalculationPayloadMapper)->map($settings, $fromCity, $toCity, true);
+
+        $payload = array_merge($payload, $settings['defined_payload']);
+
+        $extraPayload = [
             "SourceCountyId" => $fromCity->district->provider_id['yurtici'],
-            "DestinationCityId" => $toCity->plate,
             "DestinationCountyId" => $toCity->district->provider_id['yurtici'],
-            "ShipmentType" => 0,
             "TotalCount" => 1
-        ])->json()[0];
+        ];
 
+        $payload = array_merge($payload, $extraPayload);
+        $response = Http::$method($url, $payload)->json()[0];
 
         $price =  Arr::get($response, 'TotalCampaignPrice');
         $taxRate =  Arr::get($response, 'TaxRate');

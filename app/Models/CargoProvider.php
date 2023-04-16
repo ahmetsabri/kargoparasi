@@ -11,6 +11,6 @@ class CargoProvider extends Model
 
     public function settings()
     {
-        return $this->hasMany(CargoPorviderSetting::class);
+        return $this->hasOne(CargoPorviderSetting::class);
     }
 }

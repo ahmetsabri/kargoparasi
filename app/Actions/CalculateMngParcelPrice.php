@@ -2,6 +2,8 @@
 
 namespace App\Actions;
 
+use App\Helpers\CalculationPayloadMapper;
+use App\Models\CargoProvider;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 
@@ -9,19 +11,18 @@ class CalculateMngParcelPrice
 {
     public function execute($fromCity, $toCity, $width, $height, $length, $weight)
     {
-        $url = config('cargoproviders.mng.calculation_url');
-        $method = config('cargoproviders.mng.calculation_method');
+        $settings = CargoProvider::where('name', 'MNG')->first()->load('settings')->settings->settings;
 
-        $price = Http::asForm()->$method($url, [
-            "WhereFromCityId" => $fromCity->plate,
-            "WhereCityId" => $toCity->plate,
-            "PackageParcel" => 3,
-            "LengthRange"=> $length,
-            "WidthRange"=> $width,
-            "HeightRange"=> $height,
-            "WeightRange"=> $weight,
+        $url = $settings['urls']['calculation'];
 
-        ])->throw()->json();
+        $method = $settings['methods']['calculation'];
+
+        $payload = (new CalculationPayloadMapper())->map($settings, $fromCity, $toCity, false, $width, $height, $length, $weight);
+
+        $payload = array_merge($payload, $settings['defined_payload'], $payload['dimensions']);
+        Arr::forget($payload, 'dimensions');
+
+        $price = Http::asForm()->$method($url, $payload)->throw()->json();
 
        return Arr::get($price, 'TotalPrice');
     }
