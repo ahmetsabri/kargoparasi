@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Actions\GetArasLocationsAction;
 use Illuminate\Database\Seeder;
 use App\Actions\GetMngLocationsAction;
 use App\Actions\GetYurticinLocationsAction;
@@ -15,5 +16,6 @@ class DistrictSeeder extends Seeder
     {
         (new GetMngLocationsAction())->execute();
         (new GetYurticinLocationsAction())->execute();
+        (new GetArasLocationsAction())->execute();
     }
 }

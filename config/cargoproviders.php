@@ -42,6 +42,11 @@ return [
         'location_method' => env('ARAS_LOCATIONS_METHOD'),
         'calculation_url' => env('ARAS_CALCULATION_URL'),
         'calculation_method' => env('ARAS_CALCULATION_METHOD'),
+        'address_geocode_url' => env('ARAS_ADDRESS_GEOCODE_URL'),
+        'address_geocode_method' => env('ARAS_ADDRESS_GEOCODE_METHOD'),
+        'town_to_town_url' => env('ARAS_TOWN_TO_TOWN_URL'),
+        'town_to_town_method' => env('ARAS_TOWN_TO_TOWN_METHOD'),
+        'parcel_service_id' => env('ARAS_PARCEL_SERVICE_ID'),
     ],
 
 ];

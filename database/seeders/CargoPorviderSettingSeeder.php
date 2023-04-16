@@ -114,10 +114,51 @@ class CargoPorviderSettingSeeder extends Seeder
             ],
         ];
 
+        $arasSettings = [
+            'urls' => [
+                'locations' => config('cargoproviders.aras.location_url'),
+                'calculation' => config('cargoproviders.aras.calculation_url'),
+                'address_geocode' => config('cargoproviders.aras.address_geocode_url'),
+            ],
+
+            'methods' => [
+                'locations' => config('cargoproviders.aras.location_method'),
+                'calculation' => config('cargoproviders.aras.calculation_method'),
+                'address_geocode' => config('cargoproviders.aras.address_geocode_method'),
+            ],
+
+            'calculation_payload' => [
+                'envelope_key' => 'Weight',
+                'envelope_value' => 0,
+                'parcel_key' => 'Desi',
+                'parcel_value' => 0,
+            ],
+            'dimensions' => [
+                'weight' => 'Weight',
+                'length' => 'Length',
+                'width' => 'Width',
+                'height' => 'Height',
+            ],
+            'extra_payload' => [],
+            'defined_payload' => [
+                "Desi" => 0,
+                "IsWeb" => 1,
+                "IsWorldWide" => 0,
+                'ServiceList' => [
+                    [
+                        "Id" => "DC261CBFD5E0674986C7B6D7093E4060",
+                        "LovServiceTypeId" => "1",
+                        "ServiceCount" => "1",
+                    ]
+                ]
+            ],
+        ];
+
         $cargoProviders = [
             'yurtici' => $yurticiSettings,
             'mng' => $mngSettings,
             'ups' => $upsSettings,
+            'aras' => $arasSettings,
         ];
 
         foreach ($cargoProviders as $provider => $settings) {

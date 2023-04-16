@@ -9,8 +9,8 @@ class CalculationPayloadMapper
     {
         $data = [];
 
-        $data[$settings['calculation_payload']['from']] = intval( $from->plate);
-        $data[$settings['calculation_payload']['to']] = intval($to->plate);
+        $data[$settings['calculation_payload']['from']??null] = intval( $from->plate);
+        $data[$settings['calculation_payload']['to']??null] = intval($to->plate);
         if($isEnvelope){
             $data[$settings['calculation_payload']['envelope_key']] = $settings['calculation_payload']['envelope_value'];
         } else {
@@ -21,9 +21,9 @@ class CalculationPayloadMapper
                 $settings['dimensions']['height'] => $height,
                 $settings['dimensions']['weight'] => $weight
             ];
-
         }
-
-        return $data;
+        return collect($data)->reject(function($value, $key){
+            return !$key;
+        })->toArray();
     }
 }

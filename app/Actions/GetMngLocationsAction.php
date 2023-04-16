@@ -36,9 +36,9 @@ class GetMngLocationsAction
                 [
                     'name' => $address['districtName'],
                     'city_id' => $city->plate,
-                    'provider_id' => json_encode([
+                    'provider_id' => [
                         'mng' => $address['districtId']
-                    ])
+                    ]
                 ]
             );
         }

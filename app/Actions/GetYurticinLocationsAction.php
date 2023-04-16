@@ -14,7 +14,7 @@ class GetYurticinLocationsAction
         $districts = District::all();
 
         foreach ($districts as $district) {
-            $providerId = json_decode($district->provider_id, true);
+            $providerId = $district->provider_id;
             if ($district->city_id == 1) {
                 $providerId = array_merge($providerId, ['yurtici' => $district->city_id . "02"]);
             } else {
