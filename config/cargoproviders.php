@@ -37,4 +37,11 @@ return [
         'eventvalidation' => env('UPS_EVENTVALIDATION'),
     ],
 
+    'aras' => [
+        'location_url' => env('ARAS_LOCATIONS_URL'),
+        'location_method' => env('ARAS_LOCATIONS_METHOD'),
+        'calculation_url' => env('ARAS_CALCULATION_URL'),
+        'calculation_method' => env('ARAS_CALCULATION_METHOD'),
+    ],
+
 ];
