@@ -4,8 +4,56 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "121ea3a2fffe49b3ef9aa4d064b28c19",
+    "content-hash": "ed31e7b6bbf1f03943fb88ff47397e05",
     "packages": [
+        {
+            "name": "ahmetsabri/fatih-laravel-search",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ahmetsabri/fatih-laravel-search.git",
+                "reference": "33e39703b9bef1d7def632e7ea1a1e3084189b78"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ahmetsabri/fatih-laravel-search/zipball/33e39703b9bef1d7def632e7ea1a1e3084189b78",
+                "reference": "33e39703b9bef1d7def632e7ea1a1e3084189b78",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "*",
+                "illuminate/support": "*",
+                "php": "^8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ahmetsabri\\FatihLaravelSearch\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ahmetsabri",
+                    "email": "ahmedmahfouzjob@gmail.com"
+                }
+            ],
+            "description": "A Laravel package for adding search functionality to models.",
+            "homepage": "https://github.com/ahmetsabri/fatih-laravel-search",
+            "keywords": [
+                "laravel",
+                "search",
+                "searchable"
+            ],
+            "support": {
+                "issues": "https://github.com/ahmetsabri/fatih-laravel-search/issues",
+                "source": "https://github.com/ahmetsabri/fatih-laravel-search/tree/v1.0.0"
+            },
+            "time": "2023-03-10T21:37:54+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.10.2",

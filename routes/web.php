@@ -1,5 +1,7 @@
 <?php
 
+use App\Actions\CalculateArasEnvelopePrice;
+use App\Actions\CalculateArasParcelPrice;
 use App\Actions\CalculateMngEnvelopePrice;
 use App\Actions\CalculateMngParcelPrice;
 use App\Actions\CalculateUpsEnvelopePrice;
@@ -22,19 +24,24 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
-    $from = City::plate(34)->first();
-    $to = City::plate("01")->first();
 
-    // envelope
-    $yurtici = (new CalculateYurticiEnvelopePrice())->execute($from, $to, true);
-    $ups = (new CalculateUpsEnvelopePrice())->execute($from, $to, true);
-    $mng = (new CalculateMngEnvelopePrice())->execute($from, $to, true);
+    return view('welcome');
 
-    // Parcel
+    // // envelope
+    // $yurticiDosya = (new CalculateYurticiEnvelopePrice())->execute($from, $to, true);
+    // $upsDosya = (new CalculateUpsEnvelopePrice())->execute($from, $to, true);
+    // $mngDosya = (new CalculateMngEnvelopePrice())->execute($from, $to, true);
+    // $arasDosya = (new CalculateArasEnvelopePrice())->execute($from, $to);
+    // set $a with value multiple *
+    $a = '****************************************';
+    // // Parcel
     // $yurtici = (new CalculateYurticiParcelPrice())->execute($from, $to, 10, 11, 12, 3);
     // $mng = (new CalculateMngParcelPrice())->execute($from, $to, 10, 11, 12, 3);
     // $ups = (new CalculateUpsParcelPrice())->execute($from, $to, 10, 11, 12, 3);
+    // $aras = (new CalculateArasParcelPrice())->execute($from, $to,3);
 
-    return compact('yurtici', 'mng', 'ups');
+    return compact('upsDosya','mngDosya','yurticiDosya','arasDosya');
+    // return compact('ups','mng','yurtici','aras','a','upsDosya','mngDosya','yurticiDosya','arasDosya');
+
 
 });
