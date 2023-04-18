@@ -32,8 +32,8 @@ class CalculateArasParcelPrice
 
         $response = Http::$method($url, $payload)->json();
 
-        $price = Arr::get($response, 'Responses.0.TotalPrice'). ' TL';
+        $price = Arr::get($response, 'Responses.0.TotalPrice', 0). ' TL';
 
-        return $price;
+        return  (new GetFinalValueAction)->execute($price) ? $price : null;
     }
 }

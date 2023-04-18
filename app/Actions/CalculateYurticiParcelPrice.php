@@ -38,6 +38,8 @@ class CalculateYurticiParcelPrice
         $price =  Arr::get($response[0], 'TotalCampaignPrice');
         $taxRate =  Arr::get($response[0], 'TaxRate');
 
-        return str_replace('.', ',', number_format($price + ($price * $taxRate), 2)) . ' TL';
+        $price =  (new GetFinalValueAction)->execute($price);
+
+        return $price ? str_replace('.', ',', number_format($price + ($price * $taxRate), 2)) . ' TL' : null;
     }
 }

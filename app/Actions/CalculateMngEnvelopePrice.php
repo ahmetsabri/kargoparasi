@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Http;
 
 class CalculateMngEnvelopePrice
 {
-    public function execute($fromCity, $toCity, $isEnvelope)
+    public function execute($fromCity, $toCity)
     {
 
         $settings = CargoProvider::where('name', 'MNG')->first()->load('settings')->settings->settings;
@@ -22,8 +22,10 @@ class CalculateMngEnvelopePrice
 
         $payload = array_merge($payload, $settings['defined_payload']);
 
-        $price = Http::asForm()->$method($url, $payload)->throw()->json();
+        $price = Http::asForm()->$method($url, $payload)->json();
 
-       return Arr::get($price, 'TotalPrice');
+        $price = (new GetFinalValueAction())->execute(Arr::get($price, 'TotalPrice', 0));
+
+       return $price ? $price : null;
     }
 }
