@@ -8,18 +8,20 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
-<body x-data="{
+<body x-init="$watch('isEnvelope', (value, oldValue) => reset())" x-data="{
     isEnvelope: null,
     from: null,
     to: null,
-    weight: '',
-    height: '',
-    width: '',
-    length: '',
+    weight: null,
+    height: null,
+    width: null,
+    length: null,
     selectedFrom: '',
     selectedTo: '',
     searchType: '',
     cities: [],
+    prices: [],
+    isLoading: false,
     searchCity: function(e, type) {
         // fetch cities from api
         this.searchType = type;
@@ -41,10 +43,45 @@
         });
     },
     calculatePrice: function() {
-        alert(this.from);
-        alert(this.to);
-        alert(this.isEnvelope);
+
+        let data = {
+            from: this.from,
+            to: this.to,
+            weight: this.weight,
+            height: this.height,
+            width: this.width,
+            length: this.length,
+            is_envelope: this.isEnvelope
+        }
+        url = `{{route('calculate.price')}}`;
+
+        const self = this;
+        self.isLoading = true;
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })    .then(response => response.json())
+            .then(prices => {
+                self.prices = prices.data;
+        self.isLoading = false;
+
+            });
+
+    },
+    reset: function() {
+        this.weight = null;
+        this.height = null;
+        this.width = null;
+        this.length = null;
+        this.searchType = '';
+        this.cities = [];
+        this.prices = [];
     }
+
 }">
     <div class="flex justify-center items-center">
         <div class="w-full my-10">
@@ -55,7 +92,7 @@
     </div>
 
     <div class="flex my-5 justify-center">
-        <div class="w-1/2">
+        <div class="mx-10">
             <h1 class="text-center text-2xl my-3 font-bold text-indigo-500 capitalize cursor-pointer">
                 zarf / dosya
             </h1>
@@ -64,7 +101,7 @@
                 src="{{asset('imgs/envelope.png')}}" alt="image" class="w-36 mx-auto cursor-pointer">
         </div>
 
-        <div class="w-1/2">
+        <div class="mx-10">
             <h1 class="text-center text-2xl my-3 font-bold text-indigo-500 capitalize cursor-pointer">
                 Koli
             </h1>
@@ -74,15 +111,16 @@
         </div>
     </div>
 
-    <form action="" method="post" class="flex justify-center" x-show="isEnvelope !== null">
+    <form action="" method="post" class="flex justify-center mt-10" x-show="isEnvelope !== null">
 
         <div class="relative">
             <input x-model="selectedFrom" type="text" @keyup="searchCity($event, 'from')"
-                class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg placeholder-indigo-500"
-                placeholder="Nerden il veya plaka">
+                class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg placeholder-indigo-400"
+                placeholder="Nerden: il veya plaka">
 
             <img src="{{asset('imgs/location.png')}}" class="absolute inset-y-1 right-2 mr-1 pl-1 h-8 w-8"
                 alt="Search icon">
+
             <ul class="absolute z-10 top-full max-h-60 overflow-y-scroll left-1 w-full bg-white rounded-lg border border-gray-300 mt-2"
                 x-show="cities.length > 0 & searchType == 'from'">
                 <template x-for="city in cities">
@@ -97,11 +135,11 @@
 
         <div class="relative">
             <input x-model="selectedTo" type="text" @keyup="searchCity($event, 'to')"
-                class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg placeholder-indigo-500"
+                class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg placeholder-indigo-400"
                 placeholder="Nereye: il veya plaka">
             <img src="{{asset('imgs/location.png')}}" class="absolute inset-y-1 right-2 mr-1 pl-1 h-8 w-8"
                 alt="Search icon">
-                <ul class="absolute z-10 top-full max-h-60 overflow-y-scroll left-1 w-full bg-white rounded-lg border border-gray-300 mt-2"
+            <ul class="absolute z-10 top-full max-h-60 overflow-y-scroll left-1 w-full bg-white rounded-lg border border-gray-300 mt-2"
                 x-show="cities.length > 0 & searchType == 'to'">
                 <template x-for="city in cities">
                     <li x-text="city.name "
@@ -111,12 +149,81 @@
             </ul>
         </div>
     </form>
+    <div class="flex my-10 justify-center" x-show="isEnvelope == false">
 
-    <div class="flex mt-10 justify-center" x-show="isEnvelope !== null">
-        <button :disabled="from == null || to == null" :class="from == null || to == null ? 'bg-indigo-300': 'bg-indigo-600 hover:bg-indigo-700'" class="text-white rounded-md p-2 border font-bold " @click="calculatePrice">
-            Calculate
-        </button>
+        <div class="relative">
+            <input x-model="width" type="text" min="0"
+                class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg placeholder-indigo-500"
+                placeholder="En">
+            <p class="absolute inset-y-3 right-3 mr-1 text-indigo-800">CM</p>
+        </div>
+
+        <div class="relative">
+            <input x-model="length" type="text" min="0"
+                class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg placeholder-indigo-500"
+                placeholder="Boy">
+            <p class="absolute inset-y-3 right-3 mr-1 text-indigo-800">CM</p>
+        </div>
+
+        <div class="relative">
+            <input x-model="height" type="text" min="0"
+                class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg placeholder-indigo-500"
+                placeholder="Yükseklik">
+            <p class="absolute inset-y-3 right-3 mr-1 text-indigo-800">CM</p>
+        </div>
+
+        <div class="relative">
+            <input x-model="weight" type="text" min="0"
+                class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg placeholder-indigo-500"
+                placeholder="Ağırlık">
+            <p class="absolute inset-y-3 right-3 mr-1 text-indigo-800">KG</p>
+        </div>
     </div>
+    <div class="flex mt-10 justify-center" x-show="isEnvelope == false">
+
+        <div class="relative rounded-xl overflow-auto p-0">
+            <div class="flex items-center justify-center">
+              <button @click="calculatePrice"  :class="from == null || to == null  || isLoading == true ? 'bg-indigo-500 cursor-not-allowed': 'bg-indigo-600 hover:bg-indigo-700'" type="button" class="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white  hover:bg-indigo-400 transition ease-in-out duration-150" :disabled="from == null || to == null || isLoading == true">
+                <svg x-show="isLoading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span class="capitalize" x-text="isLoading ? 'hesaplıyor...' : 'hesapla'"></span>
+              </button>
+            </div>
+          </div>
+    </div>
+
+    <div class="flex mt-10 justify-center" x-show="isEnvelope == true">
+
+
+        <div class="relative rounded-xl overflow-auto p-0">
+            <div class="flex items-center justify-center">
+              <button @click="calculatePrice"  :class="from == null || to == null  || isLoading == true ? 'bg-indigo-500 cursor-not-allowed': 'bg-indigo-600 hover:bg-indigo-700'" type="button" class="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white  hover:bg-indigo-400 transition ease-in-out duration-150" :disabled="from == null || to == null || isLoading == true">
+                <svg x-show="isLoading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span class="capitalize" x-text="isLoading ? 'hesaplıyor...' : 'hesapla'"></span>
+              </button>
+            </div>
+          </div>
+    </div>
+
+       <template x-for="price in prices">
+        <div class="flex my-10 justify-center">
+            <div class="w-1/2">
+                <div class="flex justify-center">
+                    <div class="w-1/2">
+                        <p class="text-center text-indigo-500 font-bold" x-text="price.code"></p>
+                        <p class="text-center text-indigo-500 italic" x-text="`Not: ${price.note}`" x-show="price.note != null"></p>
+                    </div>
+                    <div class="w-1/2">
+                        <p class="text-center text-indigo-500 font-bold" x-text="price.price == null ? 'Belli Değil' : price.price "></p>
+                    </div>
+                </div>
+            </div>
+        </div>
 </body>
 
 </html>

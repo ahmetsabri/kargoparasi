@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CalculatePriceRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class CalculatePriceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,11 +26,11 @@ class CalculatePriceRequest extends FormRequest
             'from' => ['required', 'exists:cities,plate'],
             'to' => ['required', 'exists:cities,plate'],
             'is_envelope' => ['required', 'boolean'],
-            'weight' => ['required_if:is_envelope,true', 'numeric'],
-            'length' => ['required_if:is_envelope,true', 'numeric'],
-            'width' => ['required_if:is_envelope,true', 'numeric'],
-            'height' => ['required_if:is_envelope,true', 'numeric'],
+
+            'weight' => [Rule::when($this->is_envelope == false, ['required', 'numeric', 'min:1'])],
+            'length' => [Rule::when($this->is_envelope == false, ['required', 'numeric', 'min:1'])],
+            'width' => [Rule::when($this->is_envelope == false, ['required', 'numeric', 'min:1'])],
+            'height' => [Rule::when($this->is_envelope == false, ['required', 'numeric', 'min:1'])],
         ];
     }
-
 }

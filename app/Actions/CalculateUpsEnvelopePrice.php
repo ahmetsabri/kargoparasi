@@ -25,12 +25,14 @@ class CalculateUpsEnvelopePrice
 
     $payload = array_merge($payload, $extraPayload);
 
-    $price = Http::asForm()->$method($url, $payload)->throw()->body();
+    $price = Http::asForm()->$method($url, $payload)->body();
 
     $pos = mb_strpos($price, 'Toplam Ücret :');
 
     $price = mb_substr($price, $pos+mb_strlen('Toplam Ücret :'), 5);
 
-    return $price .' TL';
+    $price = (new GetFinalValueAction())->execute($price);
+
+    return $price ? $price .' TL' : null;
 }
 }

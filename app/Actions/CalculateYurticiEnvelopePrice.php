@@ -29,11 +29,12 @@ class CalculateYurticiEnvelopePrice
         ];
 
         $payload = array_merge($payload, $extraPayload);
-        $response = Http::$method($url, $payload)->json()[0];
+        $response = Http::$method($url, $payload)->json();
 
-        $price =  Arr::get($response, 'TotalCampaignPrice');
-        $taxRate =  Arr::get($response, 'TaxRate');
+        $price =  Arr::get($response[0], 'TotalCampaignPrice');
+        $taxRate =  Arr::get($response[0], 'TaxRate');
+        $price =  (new GetFinalValueAction)->execute($price);
 
-        return str_replace('.', ',', number_format($price + ($price * $taxRate), 2)) . ' TL';
+        return $price ? str_replace('.', ',', number_format($price + ($price * $taxRate), 2)) . ' TL' : null;
     }
 }
