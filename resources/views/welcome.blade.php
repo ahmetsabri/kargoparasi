@@ -114,11 +114,12 @@
     <form action="" method="post" class="flex justify-center mt-10" x-show="isEnvelope !== null">
 
         <div class="relative">
+        <p class="ml-2">Nerden</p>
             <input x-model="selectedFrom" type="text" @keyup="searchCity($event, 'from')"
                 class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg placeholder-indigo-400"
-                placeholder="Nerden: il veya plaka">
+                placeholder=" il adı veya plaka">
 
-            <img src="{{asset('imgs/location.png')}}" class="absolute inset-y-1 right-2 mr-1 pl-1 h-8 w-8"
+            <img src="{{asset('imgs/location.png')}}" class="absolute inset-y-7 right-2 mr-1 pl-1 h-8 w-8"
                 alt="Search icon">
 
             <ul class="absolute z-10 top-full max-h-60 overflow-y-scroll left-1 w-full bg-white rounded-lg border border-gray-300 mt-2"
@@ -134,10 +135,12 @@
 
 
         <div class="relative">
+
+        <p class="ml-2">Nereye</p>
             <input x-model="selectedTo" type="text" @keyup="searchCity($event, 'to')"
                 class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg placeholder-indigo-400"
-                placeholder="Nereye: il veya plaka">
-            <img src="{{asset('imgs/location.png')}}" class="absolute inset-y-1 right-2 mr-1 pl-1 h-8 w-8"
+                placeholder="il adı veya plaka">
+            <img src="{{asset('imgs/location.png')}}" class="absolute inset-y-7 right-2 mr-1 pl-1 h-8 w-8"
                 alt="Search icon">
             <ul class="absolute z-10 top-full max-h-60 overflow-y-scroll left-1 w-full bg-white rounded-lg border border-gray-300 mt-2"
                 x-show="cities.length > 0 & searchType == 'to'">
@@ -152,31 +155,39 @@
     <div class="flex my-10 justify-center" x-show="isEnvelope == false">
 
         <div class="relative">
+        <p class="ml-2">En</p>
+
             <input x-model="width" type="text" min="0"
-                class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg placeholder-indigo-500"
-                placeholder="En">
-            <p class="absolute inset-y-3 right-3 mr-1 text-indigo-800">CM</p>
+                class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg"
+                placeholder="">
+            <p class="absolute inset-y-8 right-3 mr-1 text-indigo-800">CM</p>
         </div>
 
         <div class="relative">
+        <p class="ml-2">Boy</p>
+
             <input x-model="length" type="text" min="0"
-                class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg placeholder-indigo-500"
-                placeholder="Boy">
-            <p class="absolute inset-y-3 right-3 mr-1 text-indigo-800">CM</p>
+                class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg"
+                placeholder="">
+            <p class="absolute inset-y-8 right-3 mr-1 text-indigo-800">CM</p>
         </div>
 
         <div class="relative">
+        <p class="ml-2">Yükseklik</p>
+
             <input x-model="height" type="text" min="0"
-                class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg placeholder-indigo-500"
-                placeholder="Yükseklik">
-            <p class="absolute inset-y-3 right-3 mr-1 text-indigo-800">CM</p>
+                class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg"
+                placeholder="">
+            <p class="absolute inset-y-8 right-3 mr-1 text-indigo-800">CM</p>
         </div>
 
         <div class="relative">
+        <p class="ml-2">Ağırlık</p>
+
             <input x-model="weight" type="text" min="0"
-                class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg placeholder-indigo-500"
-                placeholder="Ağırlık">
-            <p class="absolute inset-y-3 right-3 mr-1 text-indigo-800">KG</p>
+                class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg"
+                placeholder="">
+            <p class="absolute inset-y-8 right-3 mr-1 text-indigo-800">KG</p>
         </div>
     </div>
     <div class="flex mt-10 justify-center" x-show="isEnvelope == false">
