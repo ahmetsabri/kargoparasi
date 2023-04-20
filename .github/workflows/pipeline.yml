@@ -67,7 +67,7 @@ jobs:
         port: 22
         script: |
           cd /var/www/kargoparaasi/
-          git checkout dev
+          git checkout main
           php artisan optimize:clear
           git pull origin main
           composer install --no-progress
