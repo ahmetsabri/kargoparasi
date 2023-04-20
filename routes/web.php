@@ -23,25 +23,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-
-    return 1;
     return view('welcome');
-
-    // // envelope
-    // $yurticiDosya = (new CalculateYurticiEnvelopePrice())->execute($from, $to, true);
-    // $upsDosya = (new CalculateUpsEnvelopePrice())->execute($from, $to, true);
-    // $mngDosya = (new CalculateMngEnvelopePrice())->execute($from, $to, true);
-    // $arasDosya = (new CalculateArasEnvelopePrice())->execute($from, $to);
-    // set $a with value multiple *
-    $a = '****************************************';
-    // // Parcel
-    // $yurtici = (new CalculateYurticiParcelPrice())->execute($from, $to, 10, 11, 12, 3);
-    // $mng = (new CalculateMngParcelPrice())->execute($from, $to, 10, 11, 12, 3);
-    // $ups = (new CalculateUpsParcelPrice())->execute($from, $to, 10, 11, 12, 3);
-    // $aras = (new CalculateArasParcelPrice())->execute($from, $to,3);
-
-    return compact('upsDosya','mngDosya','yurticiDosya','arasDosya');
-    // return compact('ups','mng','yurtici','aras','a','upsDosya','mngDosya','yurticiDosya','arasDosya');
-
-
 });
