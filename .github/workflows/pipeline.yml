@@ -1,0 +1,98 @@
+name: Shifter CI/CD
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1'
+        extensions: mbstring, mysqli, pdo, pdo_mysql, zip, exif, pcntl, bcmath
+
+    - name: Cache Composer dependencies
+      uses: actions/cache@v2
+      with:
+        path: vendor
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-composer-
+
+    - name: Install Composer dependencies
+      run: composer install --no-progress --no-suggest
+
+    - name: Install NPM dependencies
+      run: npm i
+
+    - name: Build NPM dependencies
+      run: npm run build
+
+    - name: Generate new key
+      run : cp .env.example .env && php artisan key:generate
+
+    - name: Run tests
+      run: php artisan test
+
+  # deploy_main:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   if: github.ref == 'refs/heads/main'
+
+  #   steps:
+  #   - name: Checkout code
+  #     uses: actions/checkout@v2
+
+  #   - name: Set up SSH
+  #     uses: webfactory/ssh-agent@v0.4.1
+  #     with:
+  #       ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+  #   - name: Deploy
+  #     uses: appleboy/ssh-action@master
+  #     with:
+  #       host: 136.244.94.130
+  #       username: root
+  #       key: ${{ secrets.SSH_PRIVATE_KEY }}
+  #       port: 22
+  #       script: cd /var/www/shifter-prod && php artisan optimize:clear && git pull origin main && yes | composer install --no-progress --no-suggest && php artisan migrate --force
+
+  #   - name: Install Node.js
+  #     uses: actions/setup-node@v2
+  #     with:
+  #       node-version: 19
+  #       run: npm run build
+
+  deploy_dev:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.4.1
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRODUCTION_PRIVATE_KEY }}
+
+    - name: Deploy
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_PRODUCTION_IP_ADDRESS }}
+        username: ${{ secrets.SSH_PRODUCTION_USER }}
+        key: ${{ secrets.SSH_PRODUCTION_PRIVATE_KEY }}
+        port: 22
+        script: cd /var/www/shifter && git checkout dev && php artisan optimize:clear && git pull origin main && composer install --no-progress && npm i && npm run build && php artisan migrate:fresh --seed && php artisan optimize
+
+
