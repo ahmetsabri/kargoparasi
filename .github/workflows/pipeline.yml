@@ -1,4 +1,4 @@
-name: Shifter CI/CD
+name: KargomParasi CI/CD
 
 on:
   push:
@@ -73,5 +73,5 @@ jobs:
           composer install --no-progress
           npm i
           npm run build
-          php artisan migrate:fresh --seed
+          php artisan migrate:fresh --force --seed
           php artisan optimize
