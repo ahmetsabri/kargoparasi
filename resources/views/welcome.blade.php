@@ -68,6 +68,7 @@
             .then(prices => {
                 self.prices = prices.data;
         self.isLoading = false;
+        window.scrollTo(0,document.body.scrollHeight);
 
             });
 
@@ -111,16 +112,13 @@
         </div>
     </div>
 
-    <form action="" method="post" class="flex justify-center mt-10" x-show="isEnvelope !== null">
+    <form action="" method="post" class="flex flex-col items-center lg:flex-row justify-center mt-10" x-show="isEnvelope !== null">
 
         <div class="relative">
         <p class="ml-2">Nerden</p>
             <input x-model="selectedFrom" type="text" @keyup="searchCity($event, 'from')"
                 class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg placeholder-indigo-400"
                 placeholder=" il adı veya plaka">
-
-            <img src="{{asset('imgs/location.png')}}" class="absolute inset-y-7 right-2 mr-1 pl-1 h-8 w-8"
-                alt="Search icon">
 
             <ul class="absolute z-10 top-full max-h-60 overflow-y-scroll left-1 w-full bg-white rounded-lg border border-gray-300 mt-2"
                 x-show="cities.length > 0 & searchType == 'from'">
@@ -136,13 +134,12 @@
 
         <div class="relative">
 
-        <p class="ml-2">Nereye</p>
+        <p class="ml-2 mt-2 lg:mt-0">Nereye</p>
             <input x-model="selectedTo" type="text" @keyup="searchCity($event, 'to')"
                 class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg placeholder-indigo-400"
                 placeholder="il adı veya plaka">
-            <img src="{{asset('imgs/location.png')}}" class="absolute inset-y-7 right-2 mr-1 pl-1 h-8 w-8"
-                alt="Search icon">
-            <ul class="absolute z-10 top-full max-h-60 overflow-y-scroll left-1 w-full bg-white rounded-lg border border-gray-300 mt-2"
+
+                <ul class="absolute z-10 top-full max-h-60 overflow-y-scroll left-1 w-full bg-white rounded-lg border border-gray-300 mt-2"
                 x-show="cities.length > 0 & searchType == 'to'">
                 <template x-for="city in cities">
                     <li x-text="city.name "
@@ -152,19 +149,18 @@
             </ul>
         </div>
     </form>
-    <div class="flex my-10 justify-center" x-show="isEnvelope == false">
+    <div class="flex flex-col lg:flex-row mt-7 items-center justify-center" x-show="isEnvelope == false">
+        <div class="relative mb-3">
 
-        <div class="relative">
         <p class="ml-2">En</p>
-
             <input x-model="width" type="text" min="0"
                 class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg"
                 placeholder="">
             <p class="absolute inset-y-8 right-3 mr-1 text-indigo-800">CM</p>
         </div>
 
-        <div class="relative">
-        <p class="ml-2">Boy</p>
+        <div class="relative mb-3">
+            <p class="ml-2">Boy</p>
 
             <input x-model="length" type="text" min="0"
                 class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg"
@@ -172,8 +168,8 @@
             <p class="absolute inset-y-8 right-3 mr-1 text-indigo-800">CM</p>
         </div>
 
-        <div class="relative">
-        <p class="ml-2">Yükseklik</p>
+        <div class="relative mb-3">
+            <p class="ml-2">Yükseklik</p>
 
             <input x-model="height" type="text" min="0"
                 class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg"
@@ -181,8 +177,8 @@
             <p class="absolute inset-y-8 right-3 mr-1 text-indigo-800">CM</p>
         </div>
 
-        <div class="relative">
-        <p class="ml-2">Ağırlık</p>
+        <div class="relative mb-3">
+            <p class="ml-2">Ağırlık</p>
 
             <input x-model="weight" type="text" min="0"
                 class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg"
@@ -190,8 +186,7 @@
             <p class="absolute inset-y-8 right-3 mr-1 text-indigo-800">KG</p>
         </div>
     </div>
-    <div class="flex mt-10 justify-center" x-show="isEnvelope == false">
-
+    <div class="flex mt-5  justify-center" x-show="isEnvelope == true">
         <div class="relative rounded-xl overflow-auto p-0">
             <div class="flex items-center justify-center">
               <button @click="calculatePrice"  :class="from == null || to == null  || isLoading == true ? 'bg-indigo-500 cursor-not-allowed': 'bg-indigo-600 hover:bg-indigo-700'" type="button" class="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white  hover:bg-indigo-400 transition ease-in-out duration-150" :disabled="from == null || to == null || isLoading == true">
@@ -205,9 +200,7 @@
           </div>
     </div>
 
-    <div class="flex mt-10 justify-center" x-show="isEnvelope == true">
-
-
+    <div class="flex my-3 lg:my-5 justify-center" x-show="isEnvelope == false">
         <div class="relative rounded-xl overflow-auto p-0">
             <div class="flex items-center justify-center">
               <button @click="calculatePrice"  :class="from == null || to == null  || isLoading == true ? 'bg-indigo-500 cursor-not-allowed': 'bg-indigo-600 hover:bg-indigo-700'" type="button" class="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white  hover:bg-indigo-400 transition ease-in-out duration-150" :disabled="from == null || to == null || isLoading == true">
@@ -221,9 +214,8 @@
           </div>
     </div>
 
-       <template x-for="price in prices">
+        <template x-for="price in prices">
         <div class="flex my-10 justify-center">
-            <div class="w-1/2">
                 <div class="flex justify-center">
                     <div class="w-1/2">
                         <p class="text-center text-indigo-500 font-bold" x-text="price.code"></p>
@@ -234,7 +226,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </template>
 </body>
 
 </html>
