@@ -7,7 +7,7 @@ on:
       - dev
 
 env:
-  GITHUB_ACTOR: ${{ secrets.SSH_PRODUCTION_USER }}
+  PATH: ${{ env.PATH }}:/home/ahmed/.nvm/versions/node/v20.0.0/bin/npm
 jobs:
   build:
     runs-on: ubuntu-latest
