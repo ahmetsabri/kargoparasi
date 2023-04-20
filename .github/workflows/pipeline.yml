@@ -7,7 +7,7 @@ on:
       - dev
 
 env:
-  PATH: ${{ env.PATH }}:/home/ahmed/.nvm/versions/node/v20.0.0/bin/npm
+  GITHUB_ACTOR: /home/ahmed/.nvm/versions/node/v20.0.0/bin/npm
 jobs:
   build:
     runs-on: ubuntu-latest
