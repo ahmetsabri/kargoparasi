@@ -48,9 +48,6 @@ jobs:
   deploy_dev:
     needs: build
     runs-on: ubuntu-latest
-    env:
-      PATH: ${{env.PATH}}:/home/ahmed/.nvm/versions/node/v20.0.0/bin/npm
-
 
     if: github.ref == 'refs/heads/main'
 
