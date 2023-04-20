@@ -64,7 +64,7 @@ jobs:
   #       username: root
   #       key: ${{ secrets.SSH_PRIVATE_KEY }}
   #       port: 22
-  #       script: cd /var/www/shifter-prod && php artisan optimize:clear && git pull origin main && yes | composer install --no-progress --no-suggest && php artisan migrate --force
+  #       script: cd /var/www/kargoparaasi/-prod && php artisan optimize:clear && git pull origin main && yes | composer install --no-progress --no-suggest && php artisan migrate --force
 
   #   - name: Install Node.js
   #     uses: actions/setup-node@v2
@@ -93,6 +93,6 @@ jobs:
         username: ${{ secrets.SSH_PRODUCTION_USER }}
         key: ${{ secrets.SSH_PRODUCTION_PRIVATE_KEY }}
         port: 22
-        script: cd /var/www/shifter && git checkout dev && php artisan optimize:clear && git pull origin main && composer install --no-progress && npm i && npm run build && php artisan migrate:fresh --seed && php artisan optimize
+        script: cd /var/www/kargoparaasi/ && git checkout dev && php artisan optimize:clear && git pull origin main && composer install --no-progress && npm i && npm run build && php artisan migrate:fresh --seed && php artisan optimize
 
 
