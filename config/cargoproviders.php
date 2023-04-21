@@ -19,6 +19,7 @@ return [
         'location_method' => env('YURTICI_LOCATIONS_METHOD'),
         'calculation_url' => env('YURTICI_CALCULATION_URL'),
         'calculation_method' => env('YURTICI_CALCULATION_METHOD'),
+        'logo_url' => env('YURTICI_LOGO_URL'),
     ],
 
     'mng' => [
@@ -26,6 +27,7 @@ return [
         'location_method' => env('MNG_LOCATIONS_METHOD'),
         'calculation_url' => env('MNG_CALCULATION_URL'),
         'calculation_method' => env('MNG_CALCULATION_METHOD'),
+        'logo_url' => env('MNG_LOGO_URL'),
     ],
 
     'ups' => [
@@ -35,6 +37,7 @@ return [
         'calculation_method' => env('UPS_CALCULATION_METHOD'),
         'viewstate' => env('UPS_VIEWSTATE'),
         'eventvalidation' => env('UPS_EVENTVALIDATION'),
+        'logo_url' => env('UPS_LOGO_URL'),
     ],
 
     'aras' => [
@@ -47,6 +50,7 @@ return [
         'town_to_town_url' => env('ARAS_TOWN_TO_TOWN_URL'),
         'town_to_town_method' => env('ARAS_TOWN_TO_TOWN_METHOD'),
         'parcel_service_id' => env('ARAS_PARCEL_SERVICE_ID'),
+        'logo_url' => env('ARAS_LOGO_URL'),
     ],
 
 ];
