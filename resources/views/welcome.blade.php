@@ -90,8 +90,10 @@
     </div>
     <div class="border-b pb-2">
        <h1 class="text-2xl text-indigo-600 font-bold text-center">
-       Türkiye'nin 🇹🇷
-        Tüm kargo firmalarinin 📦 fiyatlarini tek bir yerden takip edebilirsiniz 👀
+       {{-- Türkiye'nin 🇹🇷
+        Tüm kargo firmalarinin 📦 fiyatlarini tek bir yerden takip edebilirsiniz 👀 --}}
+
+        Kargo 📦 fiyatlarını 💸 karşılaştırın 📊 , tasarruf edin!💰
        </h1>
     </div>
 </div>

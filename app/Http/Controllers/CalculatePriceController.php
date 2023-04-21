@@ -28,14 +28,14 @@ class CalculatePriceController extends Controller
             $ups = (new CalculateUpsEnvelopePrice())->execute($from, $to);
             $mng = (new CalculateMngEnvelopePrice())->execute($from, $to);
             $aras = (new CalculateArasEnvelopePrice())->execute($from, $to);
-            $surat = (new CalculateSuratEnvelopePrice)->execute($from, $to);
+            // $surat = (new CalculateSuratEnvelopePrice)->execute($from, $to);
 
         } else {
             $yurtici = (new CalculateYurticiParcelPrice())->execute($from, $to, $request->width, $request->height, $request->length, $request->weight);
             $mng = (new CalculateMngParcelPrice())->execute($from, $to, $request->width, $request->height, $request->length, $request->weight);
             $ups = (new CalculateUpsParcelPrice())->execute($from, $to, $request->width, $request->height, $request->length, $request->weight);
             $aras = (new CalculateArasParcelPrice())->execute($from, $to, $request->weight);
-            $surat = (new CalculateSuratParcelPrice)->execute($from, $to, $request->width, $request->height, $request->length, $request->weight);
+            // $surat = (new CalculateSuratParcelPrice)->execute($from, $to, $request->width, $request->height, $request->length, $request->weight);
 
         }
 
@@ -57,10 +57,10 @@ class CalculatePriceController extends Controller
                 'price' => $aras,
                 'provider' => 'aras',
             ],
-            [
-                'price' => $surat,
-                'provider' => 'surat',
-            ]
+            // [
+            //     'price' => $surat,
+            //     'provider' => 'surat',
+            // ]
         ];
 
         return PriceResource::collection(($prices));
