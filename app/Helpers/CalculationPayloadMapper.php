@@ -16,10 +16,10 @@ class CalculationPayloadMapper
         } else {
             $data[$settings['calculation_payload']['parcel_key']] = $settings['calculation_payload']['parcel_value'];
             $data['dimensions'] = [
-                $settings['dimensions']['length'] => $length,
-                $settings['dimensions']['width'] => $width,
-                $settings['dimensions']['height'] => $height,
-                $settings['dimensions']['weight'] => $weight
+                $settings['dimensions']['length'] ?? null => $length,
+                $settings['dimensions']['width']  ?? null  => $width,
+                $settings['dimensions']['height'] ?? null  => $height,
+                $settings['dimensions']['weight'] ?? null  => $weight
             ];
         }
         return collect($data)->reject(function($value, $key){

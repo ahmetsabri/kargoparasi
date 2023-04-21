@@ -53,4 +53,12 @@ return [
         'logo_url' => env('ARAS_LOGO_URL'),
     ],
 
+    'surat' => [
+        'location_url' => env('SURAT_LOCATIONS_URL'),
+        'location_method' => env('SURAT_LOCATIONS_METHOD'),
+        'calculation_url' => env('SURAT_CALCULATION_URL'),
+        'calculation_method' => env('SURAT_CALCULATION_METHOD'),
+        'logo_url' => env('SURAT_LOGO_URL'),
+    ],
+
 ];

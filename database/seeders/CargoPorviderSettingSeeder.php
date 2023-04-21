@@ -154,11 +154,49 @@ class CargoPorviderSettingSeeder extends Seeder
             ],
         ];
 
+        $surat =
+            [
+                'urls' => [
+                    'locations' => config('cargoproviders.surat.location_url'),
+                    'calculation' => config('cargoproviders.surat.calculation_url'),
+                    'address_geocode' => config('cargoproviders.surat.address_geocode_url'),
+                ],
+
+                'methods' => [
+                    'locations' => config('cargoproviders.surat.location_method'),
+                    'calculation' => config('cargoproviders.surat.calculation_method'),
+                    'address_geocode' => config('cargoproviders.surat.address_geocode_method'),
+                ],
+
+                'calculation_payload' => [
+                    'from' => 'CikisIl',
+                    'to' => 'VarisIl',
+                    'envelope_key' => 'Kg',
+                    'envelope_value' => 0,
+                    'parcel_key' => 'Kg',
+                    'parcel_value' => 0,
+                ],
+                'dimensions' => [
+                    'weight' => 'Kg',
+                ],
+                'extra_payload' => [],
+                'defined_payload' => [
+                    'Sigorta' => false,
+                    'GonderimTipi' => 2,
+                    'TeslimSekli' => 1,
+                    'TeslimattaGondericiye_Sms' => false,
+                    'AliciSubVar_Aliciya_Sms' => false,
+                    'FatTesKes_Aliciya_Sms' => false,
+                ],
+            ];
+
         $cargoProviders = [
             'yurtici' => $yurticiSettings,
             'mng' => $mngSettings,
             'ups' => $upsSettings,
             'aras' => $arasSettings,
+            'surat' => $surat,
+
         ];
 
         foreach ($cargoProviders as $provider => $settings) {

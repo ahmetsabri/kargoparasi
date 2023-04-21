@@ -6,6 +6,8 @@ use App\Actions\CalculateArasEnvelopePrice;
 use App\Actions\CalculateArasParcelPrice;
 use App\Actions\CalculateMngEnvelopePrice;
 use App\Actions\CalculateMngParcelPrice;
+use App\Actions\CalculateSuratEnvelopePrice;
+use App\Actions\CalculateSuratParcelPrice;
 use App\Actions\CalculateUpsEnvelopePrice;
 use App\Actions\CalculateUpsParcelPrice;
 use App\Actions\CalculateYurticiEnvelopePrice;
@@ -26,11 +28,15 @@ class CalculatePriceController extends Controller
             $ups = (new CalculateUpsEnvelopePrice())->execute($from, $to);
             $mng = (new CalculateMngEnvelopePrice())->execute($from, $to);
             $aras = (new CalculateArasEnvelopePrice())->execute($from, $to);
+            $surat = (new CalculateSuratEnvelopePrice)->execute($from, $to);
+
         } else {
             $yurtici = (new CalculateYurticiParcelPrice())->execute($from, $to, $request->width, $request->height, $request->length, $request->weight);
             $mng = (new CalculateMngParcelPrice())->execute($from, $to, $request->width, $request->height, $request->length, $request->weight);
             $ups = (new CalculateUpsParcelPrice())->execute($from, $to, $request->width, $request->height, $request->length, $request->weight);
             $aras = (new CalculateArasParcelPrice())->execute($from, $to, $request->weight);
+            $surat = (new CalculateSuratParcelPrice)->execute($from, $to, $request->width, $request->height, $request->length, $request->weight);
+
         }
 
         $prices = [
@@ -51,6 +57,10 @@ class CalculatePriceController extends Controller
                 'price' => $aras,
                 'provider' => 'aras',
             ],
+            [
+                'price' => $surat,
+                'provider' => 'surat',
+            ]
         ];
 
         return PriceResource::collection(($prices));
