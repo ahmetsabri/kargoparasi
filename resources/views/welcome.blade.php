@@ -84,31 +84,31 @@
     }
 
 }">
-    <div class="flex justify-center items-center">
-        <div class="w-full my-10">
-            <h1 class="text-4xl text-center font-bold capitalize text-indigo-600">
+    <div class="flex justify-center mt-4 md:mt-10">
+        <div class="w-full">
+            <h1 class="text-xl sm:text-3xl text-center font-bold capitalize text-indigo-600">
                 Gönderi Türü
             </h1>
         </div>
     </div>
 
-    <div class="flex my-5 justify-center">
+    <div class="flex md:my-5 justify-center">
         <div class="mx-10">
-            <h1 class="text-center text-2xl my-3 font-bold text-indigo-500 capitalize cursor-pointer">
+            <h1 class="text-center text-sm md:text-2xl my-3 font-bold text-indigo-500 capitalize cursor-pointer">
                 zarf / dosya
             </h1>
             <img @click="isEnvelope=true"
                 :class="isEnvelope ? 'bg-indigo-100 bg-opacity-75 border-indigo-300 border- p-1 border-4 rounded-md' : ''"
-                src="{{asset('imgs/envelope.png')}}" alt="image" class="w-36 mx-auto cursor-pointer">
+                src="{{asset('imgs/envelope.png')}}" alt="image" class="w-20 md:w-32 mx-auto cursor-pointer">
         </div>
 
         <div class="mx-10">
-            <h1 class="text-center text-2xl my-3 font-bold text-indigo-500 capitalize cursor-pointer">
+            <h1 class="text-center text-sm md:text-2xl my-3 font-bold text-indigo-500 capitalize cursor-pointer">
                 Koli
             </h1>
             <img @click="isEnvelope=false"
                 :class="isEnvelope==false ? 'bg-indigo-100 bg-opacity-75 border-indigo-300 border- p-1 border-4 rounded-md' : ''"
-                src="{{asset('imgs/parcel.png')}}" alt="image" class="w-36 mx-auto cursor-pointer">
+                src="{{asset('imgs/parcel.png')}}" alt="image" class="w-20 md:w-32 mx-auto cursor-pointer">
         </div>
     </div>
 
@@ -149,6 +149,7 @@
             </ul>
         </div>
     </form>
+
     <div class="flex flex-col lg:flex-row mt-7 items-center justify-center" x-show="isEnvelope == false">
         <div class="relative mb-3">
 
@@ -214,19 +215,22 @@
           </div>
     </div>
 
+    <div class="flex flex-col lg:flex-row items-center justify-center">
         <template x-for="price in prices">
-        <div class="flex my-10 justify-center">
-                <div class="flex justify-center">
-                    <div class="w-1/2">
-                        <p class="text-center text-indigo-500 font-bold" x-text="price.code"></p>
-                        <p class="text-center text-indigo-500 italic" x-text="`Not: ${price.note}`" x-show="price.note != null"></p>
+            <div class="flex flex-col lg:flex-row items-center justify-center">
+                <div class="flex bg-slate-100 rounded-lg mt-1 w-80 mx-3">
+                    <div class="flex w-1/2 justify-center ml-5">
+                        <img :src="price.logo" alt="yurtici kargo" class="w-24">
                     </div>
-                    <div class="w-1/2">
-                        <p class="text-center text-indigo-500 font-bold" x-text="price.price == null ? 'Belli Değil' : price.price "></p>
+                    <div class="w-1/2 justify-center items-center flex flex-col font-bold">
+                        <h1 class="text-3xl text-center text-indigo-600" x-text="price.price">
+                        </h1>
                     </div>
                 </div>
             </div>
         </template>
+    </div>
+
 </body>
 
 </html>
