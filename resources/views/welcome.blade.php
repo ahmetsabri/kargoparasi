@@ -8,7 +8,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
-<body x-init="$watch('isEnvelope', (value, oldValue) => reset())" x-data="{
+<body class="bg-white font-sans" x-init="$watch('isEnvelope', (value, oldValue) => reset())" x-data="{
     isEnvelope: null,
     from: null,
     to: null,
@@ -84,17 +84,33 @@
     }
 
 }">
-    <div class="flex justify-center mt-4 md:mt-10">
+<div class="flex flex-col items-center justify-center mx-10">
+    <div class="">
+        <img src="{{asset('imgs/logo.png')}}" class="w-32">
+    </div>
+    <div class="border-b pb-2">
+       <h1 class="text-2xl text-indigo-600 font-bold text-center">
+       Türkiye'nin 🇹🇷
+        Tüm kargo firmalarinin 📦 fiyatlarini tek bir yerden takip edebilirsiniz 👀
+       </h1>
+    </div>
+</div>
+    <div class="flex justify-center mt-0 md:mt-5">
         <div class="w-full">
-            <h1 class="text-xl sm:text-3xl text-center font-bold capitalize text-indigo-600">
-                Gönderi Türü
+            <h1 class="text-xl text-center font-bold capitalize text-indigo-500">
+                Gönderi Türü Seçiniz
+                <br>
+            </h1>
+
+            <h1 class="text-4xl text-center">
+                👇🏻
             </h1>
         </div>
     </div>
 
     <div class="flex md:my-5 justify-center">
         <div class="mx-10">
-            <h1 class="text-center text-sm md:text-2xl my-3 font-bold text-indigo-500 capitalize cursor-pointer">
+            <h1 @click="isEnvelope=true" class="text-center text-xl my-3 font-bold text-indigo-500 capitalize cursor-pointer">
                 zarf / dosya
             </h1>
             <img @click="isEnvelope=true"
@@ -103,7 +119,7 @@
         </div>
 
         <div class="mx-10">
-            <h1 class="text-center text-sm md:text-2xl my-3 font-bold text-indigo-500 capitalize cursor-pointer">
+            <h1 @click="isEnvelope=false" class="text-center text-xl my-3 font-bold text-indigo-500 capitalize cursor-pointer">
                 Koli
             </h1>
             <img @click="isEnvelope=false"
@@ -217,8 +233,8 @@
 
     <div class="flex flex-col xl:flex-row items-center justify-evenly mt-2">
         <template x-for="price in prices">
-            <div class="flex flex-col xl:flex-row items-center justify-center drop-shadow-md shadow-indigo-800">
-                <div class="flex bg-slate-100 rounded-lg mt-3 xl:mt-1 w-80">
+            <div class="flex flex-col items-center justify-center  bg-slate-100 drop-shadow-md shadow-indigo-800 h-28 max-h-28">
+                <div class="flex rounded-lg mt-3 xl:mt-1 w-80">
                     <div class="flex w-1/2 justify-center ml-5">
                         <img :src="price.logo" alt="yurtici kargo" class="w-24">
                     </div>
@@ -226,6 +242,9 @@
                         <h1 class="text-3xl text-center text-indigo-600" x-text="price.price">
                         </h1>
                     </div>
+                </div>
+                <div class="shrink mb-3">
+                    <p class="text-sm italic font-bold" x-show="price.note != null" x-text="price.note"></p>
                 </div>
             </div>
         </template>
