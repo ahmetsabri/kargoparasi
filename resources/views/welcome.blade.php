@@ -131,7 +131,7 @@
     <form action="" method="post" class="flex flex-col items-center lg:flex-row justify-center mt-10" x-show="isEnvelope !== null">
 
         <div class="relative">
-        <p class="ml-2">Nerden</p>
+        <p class="ml-2 font-bold text-indigo-500">Nerden 📍</p>
             <input x-model="selectedFrom" type="text" @keyup="searchCity($event, 'from')"
                 class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg placeholder-indigo-400"
                 placeholder=" il adı veya plaka">
@@ -150,7 +150,7 @@
 
         <div class="relative">
 
-        <p class="ml-2 mt-2 lg:mt-0">Nereye</p>
+        <p class="ml-2 mt-2 lg:mt-0 font-bold text-indigo-500">Nereye 📍</p>
             <input x-model="selectedTo" type="text" @keyup="searchCity($event, 'to')"
                 class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg placeholder-indigo-400"
                 placeholder="il adı veya plaka">
@@ -169,7 +169,7 @@
     <div class="flex flex-col lg:flex-row mt-7 items-center justify-center" x-show="isEnvelope == false">
         <div class="relative mb-3">
 
-        <p class="ml-2">En</p>
+        <p class="ml-2 font-bold text-indigo-500">En 📏</p>
             <input x-model="width" type="text" min="0"
                 class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg"
                 placeholder="">
@@ -177,7 +177,7 @@
         </div>
 
         <div class="relative mb-3">
-            <p class="ml-2">Boy</p>
+            <p class="ml-2 font-bold text-indigo-500">Boy 📏</p>
 
             <input x-model="length" type="text" min="0"
                 class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg"
@@ -186,7 +186,7 @@
         </div>
 
         <div class="relative mb-3">
-            <p class="ml-2">Yükseklik</p>
+            <p class="ml-2 font-bold text-indigo-500">Yükseklik 📏</p>
 
             <input x-model="height" type="text" min="0"
                 class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg"
@@ -195,7 +195,7 @@
         </div>
 
         <div class="relative mb-3">
-            <p class="ml-2">Ağırlık</p>
+            <p class="ml-2 font-bold text-indigo-500">Ağırlık ⚖️</p>
 
             <input x-model="weight" type="text" min="0"
                 class="border-2 border-indigo-400 w-60 text-indigo-800 p-2 mx-2 rounded-lg"
