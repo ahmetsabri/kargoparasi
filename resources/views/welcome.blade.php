@@ -86,7 +86,7 @@
 }">
 <div class="flex flex-col items-center justify-center mx-10">
     <div class="">
-        <img src="{{asset('imgs/logo.png')}}" class="w-32">
+        <img src="{{asset('imgs/logo.png')}}" class="w-48">
     </div>
     <div class="border-b pb-2">
        <h1 class="text-2xl text-indigo-600 font-bold text-center">
