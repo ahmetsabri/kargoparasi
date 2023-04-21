@@ -233,7 +233,7 @@
 
     <div class="flex flex-col xl:flex-row items-center justify-evenly mt-2">
         <template x-for="price in prices">
-            <div class="flex flex-col items-center justify-center  bg-slate-100 drop-shadow-md shadow-indigo-800 h-28 max-h-28">
+            <div class="flex flex-col items-center justify-center my-3 xl:my-0 bg-slate-100 drop-shadow-md shadow-indigo-800 h-28 max-h-28">
                 <div class="flex rounded-lg mt-3 xl:mt-1 w-80">
                     <div class="flex w-1/2 justify-center ml-5">
                         <img :src="price.logo" alt="yurtici kargo" class="w-24">
