@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/app.css')
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <title>{{config('app.name')}}</title>
+    <link rel="icon" sizes="180x180" href="{{asset('imgs/logo.png')}}">
 </head>
 
 <body class="bg-white font-sans" x-init="$watch('isEnvelope', (value, oldValue) => reset())" x-data="{
