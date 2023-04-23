@@ -71,7 +71,7 @@
         setTimeout(function() {
   var element = document.getElementById('results');
   element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-}, 500); // delay of 1 second (1000 milliseconds)
+}, 100); // delay of 1 second (1000 milliseconds)
 
 
 
@@ -237,8 +237,8 @@
             </div>
           </div>
     </div>
-    <template  x-if="prices.length > 0">
 
+    <template  x-if="prices.length > 0">
     <div class="flex flex-col xl:flex-row items-center justify-evenly my-2 xl:flex-wrap" id="results">
         <template x-for="price in prices">
             <div class="flex flex-col items-center justify-center my-3 xl:my-2 bg-slate-100 drop-shadow-md shadow-indigo-800 h-28 max-h-28">
