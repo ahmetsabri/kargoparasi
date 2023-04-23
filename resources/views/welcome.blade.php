@@ -25,7 +25,6 @@
     prices: [],
     isLoading: false,
     searchCity: function(e, type) {
-        // fetch cities from api
         this.searchType = type;
         let search = e.target.value;
         url = `{{route('cities.search')}}`+'?search='+search;
@@ -45,7 +44,6 @@
         });
     },
     calculatePrice: function() {
-
         let data = {
             from: this.from,
             to: this.to,
@@ -70,7 +68,12 @@
             .then(prices => {
                 self.prices = prices.data;
         self.isLoading = false;
-        window.scrollTo(0,document.body.scrollHeight);
+        setTimeout(function() {
+  var element = document.getElementById('results');
+  element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}, 500); // delay of 1 second (1000 milliseconds)
+
+
 
             });
 
@@ -99,7 +102,7 @@
        </h1>
     </div>
 </div>
-    <div class="flex justify-center mt-0 md:mt-5">
+    <div class="flex justify-center mt-0">
         <div class="w-full">
             <h1 class="text-xl text-center font-bold capitalize text-indigo-500">
                 Gönderi Türü Seçiniz
@@ -112,7 +115,7 @@
         </div>
     </div>
 
-    <div class="flex md:my-5 justify-center">
+    <div class="flex my-0 justify-center">
         <div class="mx-10">
             <h1 @click="isEnvelope=true" class="text-center text-xl my-3 font-bold text-indigo-500 capitalize cursor-pointer">
                 zarf / dosya
@@ -234,8 +237,9 @@
             </div>
           </div>
     </div>
+    <template  x-if="prices.length > 0">
 
-    <div class="flex flex-col xl:flex-row items-center justify-evenly my-2 xl:flex-wrap">
+    <div class="flex flex-col xl:flex-row items-center justify-evenly my-2 xl:flex-wrap" id="results">
         <template x-for="price in prices">
             <div class="flex flex-col items-center justify-center my-3 xl:my-2 bg-slate-100 drop-shadow-md shadow-indigo-800 h-28 max-h-28">
                 <div class="flex rounded-lg mt-3 xl:mt-1 w-80">
@@ -253,6 +257,7 @@
             </div>
         </template>
     </div>
+    </template>
 
 </body>
 
