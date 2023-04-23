@@ -244,7 +244,7 @@
             <div class="flex flex-col items-center justify-center my-3 xl:my-2 bg-slate-100 drop-shadow-md shadow-indigo-800 h-28 max-h-28">
                 <div class="flex rounded-lg mt-3 xl:mt-1 w-80">
                     <div class="flex w-1/2 justify-center ml-5">
-                        <img :src="price.logo" alt="yurtici kargo" class="w-24">
+                        <img :src="price.logo" :alt="price.code" class="w-24">
                     </div>
                     <div class="w-1/2 justify-center items-center flex flex-col font-bold">
                         <h1 class="text-3xl text-center text-indigo-600" x-text="price.price">
