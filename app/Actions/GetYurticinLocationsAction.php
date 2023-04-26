@@ -17,6 +17,8 @@ class GetYurticinLocationsAction
             $providerId = $district->provider_id;
             if ($district->city_id == 1) {
                 $providerId = array_merge($providerId, ['yurtici' => $district->city_id . "02"]);
+            } elseif ($district->city_id == 14) {
+                $providerId = array_merge($providerId, ['yurtici' => $district->city_id . "13"]);
             } else {
                 $providerId = array_merge($providerId, ['yurtici' => $district->city_id . "01"]);
             }
