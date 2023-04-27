@@ -29,7 +29,9 @@ class TrackSearch
             'ip' => $request->ip(),
             'from' => $request->from,
             'to' => $request->to,
-            'results' => Arr::get(json_decode($response->getContent(),true),'data')
+            'is_envelope' => $request->is_envelope,
+            'results' => Arr::get(json_decode($response->getContent(),true),'data'),
+            'payload' => $request->all(),
         ]);
 }
 }

@@ -13,5 +13,6 @@ class SearchResult extends Model
 
     protected $casts = [
         'results' => 'array',
+        'payload' => 'array',
     ];
 }
