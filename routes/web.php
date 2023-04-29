@@ -1,4 +1,6 @@
 <?php
+
+use Illuminate\Support\Facades\Process;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,3 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'welcome');
+
+Route::get('test',function(){
+    $cmd =  Process::path(app_path('Helpers'))->run('node ptt.js 100');
+    echo $cmd->output();
+});

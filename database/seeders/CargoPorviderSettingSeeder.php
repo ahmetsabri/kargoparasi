@@ -69,7 +69,7 @@ class CargoPorviderSettingSeeder extends Seeder
             'dimensions' => [
                 'weight' => 'WeightRange',
                 'length' => 'LengthRange',
-                'width' => 'WidthRange',
+                'width' => 'MostRange',
                 'height' => 'HeightRange',
             ],
             'extra_payload' => [],

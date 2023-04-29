@@ -61,4 +61,12 @@ return [
         'logo_url' => env('SURAT_LOGO_URL'),
     ],
 
+    'ptt' => [
+        'location_url' => env('PTT_LOCATIONS_URL'),
+        'location_method' => env('PTT_LOCATIONS_METHOD'),
+        'calculation_url' => env('PTT_CALCULATION_URL'),
+        'calculation_method' => env('PTT_CALCULATION_METHOD'),
+        'logo_url' => env('PTT_LOGO_URL'),
+    ]
+
 ];

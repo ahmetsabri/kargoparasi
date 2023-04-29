@@ -10,7 +10,7 @@ use App\Helpers\CalculationPayloadMapper;
 
 class CalculateArasParcelPrice
 {
-    public function execute(City $fromCity, City $toCity, $weight)
+    public function execute(City $fromCity, City $toCity, $weight, $width, $height, $length)
     {
         $settings = CargoProvider::where('name', 'ARAS')->first()->load('settings')->settings->settings;
 
@@ -26,9 +26,11 @@ class CalculateArasParcelPrice
 
         $payload = array_merge($payload, $settings['defined_payload'], $payload['dimensions'], $extraPayload);
 
+        $desi = $width * $height * $length / 3000;
         Arr::forget($payload,['dimensions','Length','Width','Height']);
 
         data_set($payload, 'ServiceList.0.Id', config('cargoproviders.aras.parcel_service_id'));
+        data_set($payload, 'Desi', $desi);
 
         $response = Http::$method($url, $payload)->json();
 
