@@ -16,9 +16,3 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'welcome');
-
-Route::get('test',function(){
-    $ptt = (new CalculatePttPrice)->execute(10);
-
-    return compact('ptt');
-});
